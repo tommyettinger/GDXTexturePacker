@@ -1,3 +1,6 @@
+apply plugin: 'application'
+
+
 buildscript {
     repositories {
         mavenCentral()
@@ -31,10 +34,26 @@ allprojects {
 project(":desktop") {
     apply plugin: "java"
 
+    version = '1.0'
 
     dependencies {
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        compile "com.jgoodies:forms:1.2.1"
+        // compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+    }
+
+    task uberjar(type: Jar) {
+        from files(sourceSets.main.output.classesDir)
+        from { configurations.compile.collect { zipTree(it) } } {
+            exclude "META-INF/*.SF"
+            exclude "META-INF/*.DSA"
+            exclude "META-INF/*.RSA"
+        }
+
+        manifest {
+            attributes 'Main-Class': 'just.texture.packer.desktop.PackingQuestions'
+        }
     }
 }
 
