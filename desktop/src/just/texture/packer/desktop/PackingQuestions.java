@@ -21,6 +21,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FilenameFilter;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -40,7 +41,6 @@ public class PackingQuestions extends JFrame {
     private JLabel failureLabel;
     private JTextField pathToOutputText;
     private JTextField packFileText;
-    private JButton choosePackFileButton;
     private JLabel processingLabel;
 
     public PackingQuestions() {
@@ -67,25 +67,22 @@ public class PackingQuestions extends JFrame {
                 }
             }
         });
-        choosePackFileButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                File packy = getFile();
-                if (packy != null) {
-                    packFileText.setText(packy.getAbsolutePath());
-                }
-            }
-        });
+
         packTexturesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                successLabel.setText("");
                 processingLabel.setText("Processing...");
+                failureLabel.setText("");
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            TexturePacker.process(pathToImagesText.getText(), pathToOutputText.getText(), packFileText.getText());
+                            String prefix = packFileText.getText();
+                            if (prefix.isEmpty()) prefix = "pack";
+                            TexturePacker.process(pathToImagesText.getText(), pathToOutputText.getText(), prefix);
                             successLabel.setText("SUCCESS!");
-                            failureLabel.setText("");
                             processingLabel.setText("");
+                            failureLabel.setText("");
                         } catch (Exception ex) {
                             successLabel.setText("");
                             processingLabel.setText("");
@@ -131,7 +128,7 @@ public class PackingQuestions extends JFrame {
     File getFile() {
         if (System.getProperty("os.name").contains("Mac")) {
             System.setProperty("apple.awt.fileDialogForDirectories", "false");
-            FileDialog dialog = new FileDialog(PackingQuestions.this, "Choose .pack file", FileDialog.LOAD);
+            FileDialog dialog = new FileDialog(PackingQuestions.this, "Choose name for atlas file", FileDialog.SAVE);
             dialog.setVisible(true);
             String name = dialog.getFile();
             String dir = dialog.getDirectory();
@@ -139,9 +136,9 @@ public class PackingQuestions extends JFrame {
             return new File(dialog.getDirectory(), dialog.getFile());
         } else {
             JFileChooser chooser = new JFileChooser();
-            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            chooser.setDialogTitle("Choose .pack file");
-            int result = chooser.showOpenDialog(null);
+            chooser.setFileSelectionMode(JFileChooser.SAVE_DIALOG);
+            chooser.setDialogTitle("Choose name for atlas file");
+            int result = chooser.showSaveDialog(null);
             if (result == JFileChooser.APPROVE_OPTION) {
                 File fil = chooser.getSelectedFile();
                 if (fil == null) return null;
@@ -188,7 +185,7 @@ public class PackingQuestions extends JFrame {
      */
     private void $$$setupUI$$$() {
         panel1 = new JPanel();
-        panel1.setLayout(new FormLayout("fill:139px:noGrow,left:4dlu:noGrow,fill:179px:grow,left:4dlu:noGrow,center:max(p;120px):grow(5.0),left:4dlu:noGrow", "center:d:grow,top:4dlu:noGrow,center:d:grow,top:4dlu:noGrow,center:d:grow,top:4dlu:noGrow,center:d:grow"));
+        panel1.setLayout(new FormLayout("fill:275px:noGrow,left:4dlu:noGrow,fill:max(m;150px):grow,left:13dlu:noGrow,center:max(p;300px):grow(5.0),left:6dlu:noGrow", "center:d:grow,top:4dlu:noGrow,center:d:grow,top:4dlu:noGrow,center:d:grow,top:4dlu:noGrow,center:d:grow"));
         panel1.setBackground(new Color(-12632257));
         panel1.setFont(UIManager.getFont("TextField.font"));
         chooseInputDirectoryButton = new JButton();
@@ -202,7 +199,7 @@ public class PackingQuestions extends JFrame {
         pathToImagesText = new JTextField();
         pathToImagesText.setBackground(new Color(-723724));
         pathToImagesText.setText("<Directory not chosen>");
-        panel1.add(pathToImagesText, cc.xyw(5, 1, 2, CellConstraints.FILL, CellConstraints.DEFAULT));
+        panel1.add(pathToImagesText, cc.xy(5, 1, CellConstraints.FILL, CellConstraints.DEFAULT));
         final JLabel label2 = new JLabel();
         label2.setForeground(new Color(-855310));
         label2.setText("Path to write the output:");
@@ -213,18 +210,15 @@ public class PackingQuestions extends JFrame {
         pathToOutputText = new JTextField();
         pathToOutputText.setBackground(new Color(-723724));
         pathToOutputText.setText("<Directory not chosen>");
-        panel1.add(pathToOutputText, cc.xyw(5, 3, 2, CellConstraints.FILL, CellConstraints.DEFAULT));
+        panel1.add(pathToOutputText, cc.xy(5, 3, CellConstraints.FILL, CellConstraints.DEFAULT));
         final JLabel label3 = new JLabel();
         label3.setForeground(new Color(-855310));
-        label3.setText("[Optional] .pack file");
+        label3.setText("[Optional] Prefix for atlas file and texture page(s)");
         panel1.add(label3, cc.xy(1, 5));
-        choosePackFileButton = new JButton();
-        choosePackFileButton.setText("Choose File");
-        panel1.add(choosePackFileButton, cc.xy(3, 5));
         packFileText = new JTextField();
         packFileText.setBackground(new Color(-723724));
-        packFileText.setText("pack.atlas");
-        panel1.add(packFileText, cc.xyw(5, 5, 2, CellConstraints.FILL, CellConstraints.DEFAULT));
+        packFileText.setText("pack");
+        panel1.add(packFileText, cc.xy(5, 5, CellConstraints.FILL, CellConstraints.DEFAULT));
         packTexturesButton = new JButton();
         packTexturesButton.setText("Pack Textures!");
         panel1.add(packTexturesButton, cc.xy(3, 7));

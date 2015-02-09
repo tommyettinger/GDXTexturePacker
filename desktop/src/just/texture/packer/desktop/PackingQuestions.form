@@ -8,14 +8,14 @@
     <rowspec value="center:d:grow"/>
     <rowspec value="top:4dlu:noGrow"/>
     <rowspec value="center:d:grow"/>
-    <colspec value="fill:139px:noGrow"/>
+    <colspec value="fill:275px:noGrow"/>
     <colspec value="left:4dlu:noGrow"/>
-    <colspec value="fill:179px:grow"/>
-    <colspec value="left:4dlu:noGrow"/>
-    <colspec value="center:max(p;120px):grow(5.0)"/>
-    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:max(m;150px):grow"/>
+    <colspec value="left:13dlu:noGrow"/>
+    <colspec value="center:max(p;300px):grow(5.0)"/>
+    <colspec value="left:6dlu:noGrow"/>
     <constraints>
-      <xy x="20" y="20" width="604" height="400"/>
+      <xy x="20" y="20" width="766" height="141"/>
     </constraints>
     <properties>
       <background color="-12632257"/>
@@ -46,7 +46,7 @@
       </component>
       <component id="ef26e" class="javax.swing.JTextField" binding="pathToImagesText">
         <constraints>
-          <grid row="0" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
           <forms defaultalign-horz="false"/>
@@ -79,7 +79,7 @@
       </component>
       <component id="bd63" class="javax.swing.JTextField" binding="pathToOutputText">
         <constraints>
-          <grid row="2" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
           <forms defaultalign-horz="false"/>
@@ -96,30 +96,19 @@
         </constraints>
         <properties>
           <foreground color="-855310"/>
-          <text value="[Optional] .pack file"/>
-        </properties>
-      </component>
-      <component id="353a" class="javax.swing.JButton" binding="choosePackFileButton">
-        <constraints>
-          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="207" height="32"/>
-          </grid>
-          <forms/>
-        </constraints>
-        <properties>
-          <text value="Choose File"/>
+          <text value="[Optional] Prefix for atlas file and texture page(s)"/>
         </properties>
       </component>
       <component id="ff8ba" class="javax.swing.JTextField" binding="packFileText">
         <constraints>
-          <grid row="4" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
           <forms defaultalign-horz="false"/>
         </constraints>
         <properties>
           <background color="-723724"/>
-          <text value="pack.atlas"/>
+          <text value="pack"/>
         </properties>
       </component>
       <component id="4a844" class="javax.swing.JButton" binding="packTexturesButton" default-binding="true">
