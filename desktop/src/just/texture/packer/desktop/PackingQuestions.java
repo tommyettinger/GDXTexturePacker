@@ -16,17 +16,16 @@
 
 package just.texture.packer.desktop;
 
+import com.badlogic.gdx.tools.texturepacker.TexturePacker;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
+
 import javax.swing.*;
+import javax.swing.UIManager.LookAndFeelInfo;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FilenameFilter;
-
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
-import com.badlogic.gdx.tools.texturepacker.TexturePacker;
-import javax.swing.UIManager.*;
 
 /**
  * Created by Tommy Ettinger on 2/7/2015.
